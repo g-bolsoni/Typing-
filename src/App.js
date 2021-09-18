@@ -43,6 +43,25 @@ const  App = () => {
     }, []);
     /*realizar a exibição das palavras*/
     const [validKeys, setValidKeys] = useState([]);
+    /*Trocar palavra qnd ela acerta*/
+    const [completedWords, setCompletedWords] = useState([]);
+    useEffect(() => {
+       const wordFromValidKeys = validKeys.join('').toLowerCase();
+       if(word && word === wordFromValidKeys){
+            //Buscar uma palavra nova
+            let newWord =null;
+            do{
+                newWord  = getRandowWords();
+            }while(completedWords.includes(newWord));
+            setWord(newWord);
+            //limpar o array validKeys
+            setValidKeys([]);
+            //adiconar word ao completedWords
+            setCompletedWords((prev)=> [...prev, word]);
+       }
+    }, [word, validKeys,completedWords])
+    /*Trocar palavra qnd ela acerta*/
+
 
     return (
         <div className='container' tabIndex="0" onKeyDown={handlekeyDown}>
@@ -53,11 +72,11 @@ const  App = () => {
             <div className="typed_keys">{typed_keys ? typed_keys.join(' ') : null }</div>
             <div className="completed-words">
                 <ol>
-                    <li>cidade</li>
-                    <li>proffisional</li>
-                    <li>casa</li>
-                    <li>moradia</li>
-                    <li>lar</li>
+                    {completedWords.map((word)=>{
+                        return(
+                            <li key={word}>{word}</li>
+                        )
+                    })}
                 </ol>
             </div>
         </div>
