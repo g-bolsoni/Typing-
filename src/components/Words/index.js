@@ -7,10 +7,9 @@ export default function Words({word, validKeys}) {
     const remainder = word.slice( joinedKeys.length)
 
     return (
-        <>
+        <dl>
             <span className="matched">{matched}</span>
             <span className="remainder">{remainder}</span>
-
-        </>
+        </dl>
     )
 }

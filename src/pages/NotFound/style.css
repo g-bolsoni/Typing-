@@ -1,0 +1,50 @@
+.NotFound_container{
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.NotFound_text{
+    display: inherit;
+    height: 174px;
+    flex-direction: column;
+    align-items: center;
+}
+.NotFound_text h2{
+    font-weight: bold;
+}
+.NotFound_text h5{
+    margin-top:20%;
+    font-weight: 500;
+    font-size: 15px;
+}
+.NotFound_text p{
+    font-weight: 500;
+    font-size: 15px;
+}
+@media screen and (max-width: 600px) {
+    .NotFound_container{
+        justify-content: space-evenly;
+        flex-direction:column;
+    }
+    .NotFound_text{
+        display: inherit;
+        height: 174px;
+        max-width: 700px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .NotFound_text h2{
+        font-weight: bold;
+    
+    }
+    .NotFound_text h5{
+        margin-top:10% !important;
+        font-weight: 500;
+        font-size: 15px;
+    }
+    .NotFound_text p{
+        font-weight: 500;
+        font-size: 15px;
+    }
+}
