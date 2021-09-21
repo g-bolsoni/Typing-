@@ -1,5 +1,5 @@
 import './style.css';
-import React,{useState, useEffect} from 'react';
+import React,{useState, useEffect, useRef} from 'react';
 import wordList from '../../resources/words.json';
 import Words from '../../components/Words';
 
@@ -42,6 +42,7 @@ export default function PageWords(){
     const [word, setWord] = useState('');
     useEffect(() => {
         setWord(getRandowWords());
+        if(containerRef) containerRef.current.focus() 
     }, []);
     /*realizar a exibição das palavras*/
     const [validKeys, setValidKeys] = useState([]);
@@ -49,24 +50,34 @@ export default function PageWords(){
     const [completedWords, setCompletedWords] = useState([]);
     useEffect(() => {
        const wordFromValidKeys = validKeys.join('').toLowerCase();
-       if(word && word === wordFromValidKeys){
-            //Buscar uma palavra nova
-            let newWord =null;
-            do{
-                newWord  = getRandowWords();
-            }while(completedWords.includes(newWord));
-            setWord(newWord);
-            //limpar o array validKeys
-            setValidKeys([]);
-            //adiconar word ao completedWords
-            setCompletedWords((prev)=> [...prev, word]);
-       }
+       let timeout = null;
+        if(word && word === wordFromValidKeys){
+            timeout = setTimeout(() => {
+                //Buscar uma palavra nova
+                let newWord =null;
+                do{
+                    newWord  = getRandowWords();
+                }while(completedWords.includes(newWord));
+                setWord(newWord);
+                //limpar o array validKeys
+                setValidKeys([]);
+                //adiconar word ao completedWords
+                setCompletedWords((prev)=> [...prev, word]);
+            }, 700);
+        }
+        return ()=> {
+            if(timeout){
+                clearTimeout(timeout)
+            }
+        }
     }, [word, validKeys,completedWords])
+       
+       
     /*Trocar palavra qnd ela acerta*/
 
-
+    const containerRef = useRef(null)
     return (
-        <div className='container' tabIndex="0" onKeyDown={handlekeyDown}>
+        <div className='container' tabIndex="0" onKeyDown={handlekeyDown} ref={containerRef}>
           
             <div className="valid-keys">
                 <Words word={word} validKeys={validKeys}/>

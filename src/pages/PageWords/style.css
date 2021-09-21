@@ -8,6 +8,9 @@
     align-items: center;
     
 }
+.container:focus{
+    outline: none;
+}
 .container .valid-keys{
     font-size: 10rem;
     font-weight: bold;
@@ -17,6 +20,13 @@
 .container .valid-keys .matched{
     background-color: #fdf8c5;
     color: #282c34;
+}
+.container .valid-keys  .matched.completed{
+    position: relative;
+    top: 0;
+    left: 0;
+    animation: wordDown .7s ease-in;
+    opacity: 1;
 }
 .container .valid-keys .remainder{
     opacity: .5;
@@ -34,10 +44,38 @@
     font-size: 1.3rem;
     line-height: 1.8rem;
     opacity: .5;
+    display: flex;
 }
+.container .completed-words ol{
+    display: inherit;
+    flex-grow: 1;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
 .container .typed_keys{
     margin-top: 20px;
     font-size: .9rem;
     width: 600px;
     overflow:hidden;
+}
+@keyframes wordDown {
+    0%{
+        top: 0;
+        transform: scale(1.1);
+        transform: rotate3d(45deg);
+        opacity: 1;
+    }
+    20%{
+        top: -5rem;
+        background-color: #26947c;
+        transform: scale(1.2);
+    }
+    100%{
+        top: 15rem;
+        transform: scale(0.7);
+        transform: rotate3d(360deg);
+        opacity: 0;
+        overflow: hidden;
+    }
 }

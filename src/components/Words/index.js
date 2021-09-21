@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css'
 
 export default function Words({word, validKeys}) {
     if(!word) return null;
@@ -8,7 +9,7 @@ export default function Words({word, validKeys}) {
 
     return (
         <dl>
-            <span className="matched">{matched}</span>
+            <span className={`matched ${(joinedKeys == word) ? 'completed' : ''}`}>{matched}</span>
             <span className="remainder">{remainder}</span>
         </dl>
     )
